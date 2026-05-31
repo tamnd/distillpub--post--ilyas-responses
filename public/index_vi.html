@@ -1,0 +1,486 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://distill.pub/template.v2.js"></script>
+    <style>
+        .subgrid {
+	grid-column: screen;
+	display: grid;
+	grid-template-columns: inherit;
+	grid-template-rows: inherit;
+	grid-column-gap: inherit;
+	grid-row-gap: inherit;
+}
+
+d-figure.base-grid {
+	grid-column: screen;
+	background: hsl(0, 0%, 97%);
+	padding: 20px 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+d-figure {
+	margin-bottom: 1em;
+	position: relative;
+}
+
+d-figure > figure {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.shaded-figure {
+	background-color: hsl(0, 0%, 97%);
+	border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+	border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+	padding: 30px 0;
+}
+
+.pointer {
+	position: absolute;
+	width: 26px;
+	height: 26px;
+	top: 26px;
+	left: -48px;
+}
+
+.rebuttal-summary,
+#response-info {
+	margin: 1em 0;
+	padding: 1em;
+	/* border-radius: 0.25em; */
+}
+
+.summary {
+	margin-top: 18px;
+	margin-bottom: 18px;
+}
+
+.rebuttal-summary {
+	margin-top: 18px;
+	margin-bottom: 32px;
+}
+
+h3 .author {
+	font-weight: normal;
+	color: #555;
+	margin-left: 8px;
+}
+
+.rebuttal-summary,
+#response-info {
+	background-color: hsl(118, 50%, 97%);
+	border-left: solid hsl(119, 50%, 25%) 3px;
+	/* border-radius: 0.25em; */
+}
+
+.rebuttal {
+	background-color: hsl(54, 78%, 96%);
+	border-left: solid hsl(54, 33%, 67%) 1px;
+	padding: 1.5em;
+	color: hsla(0, 0%, 0%, 0.67);
+}
+
+.rebuttal h4 {
+	margin-top: 0;
+}
+
+.rebuttal p {
+	margin-bottom: 0;
+}
+
+.articles article {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 2em 0;
+	display: grid;
+	grid-template-columns: 65px 1fr;
+	grid-template-areas:
+		"icon header"
+		"icon summary"
+		"icon rebuttal";
+	grid-row-gap: 1.5em;
+}
+
+article#rebuttal {
+	grid-template-areas:
+		"icon header"
+		"icon summary";
+}
+
+.articles article .icon {
+	grid-area: icon;
+	padding-top: 0.5em;
+	content: url(images/single-page.svg);
+}
+
+.articles article header {
+	grid-area: header;
+}
+
+.articles article header h3 {
+	font-size: 22px;
+}
+
+.articles article header .authors-affiliations {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(25%, max-content));
+	font-size: 0.8rem;
+}
+
+.articles article header .authors-affiliations h3 {
+	font-size: 0.6rem;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.5);
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.articles article header .authors-affiliations a {
+	color: rgba(0, 0, 0, 0.8);
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.articles article header .authors-affiliations p {
+	margin-bottom: 0;
+}
+
+.articles article .summary {
+	grid-area: summary;
+	margin: 0;
+}
+
+.articles article .continue {
+	grid-area: continue;
+	font-size: 80%;
+	font-weight: 600;
+	border-bottom: none;
+	text-transform: uppercase;
+	color: #2e6db7;
+	display: block;
+	margin-top: 0.25em;
+	letter-spacing: 0.25px;
+}
+
+.articles article .continue::before {
+	content: "→";
+	margin-right: 0.25em;
+}
+
+.articles article .rebuttal {
+	grid-area: rebuttal;
+}
+
+.articles article header h3 {
+	margin-top: 0;
+}
+
+.articles article header h3 a {
+	border-bottom: none;
+	color: #2e6db7;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <d-front-matter>
+        <script type="text/json">
+{
+  "title": "Thảo luận về 'Các Ví dụ Đối Kháng Không Phải Lỗi, Chúng Là Tính Năng'",
+  "description": "Sáu bình luận từ cộng đồng và phản hồi từ các tác giả gốc",
+  "authors": [
+    {
+      "author": "Logan Engstrom",
+      "authorURL": "http://loganengstrom.com/",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Justin Gilmer",
+      "authorURL": "https://www.linkedin.com/in/jmgilmer/",
+      "affiliation": "Google Brain Team",
+      "affiliationURL": "https://ai.google/research/teams/brain"
+    },
+    {
+      "author": "Gabriel Goh",
+      "authorURL": "https://gabgoh.github.io/",
+      "affiliation": "OpenAI",
+      "affiliationURL": "https://openai.com/"
+    },
+    {
+      "author": "Dan Hendrycks",
+      "authorURL": "https://people.eecs.berkeley.edu/~hendrycks/",
+      "affiliation": "UC Berkeley",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Andrew Ilyas",
+      "authorURL": "http://andrewilyas.com/",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Aleksander Madry",
+      "authorURL": "https://people.csail.mit.edu/madry/",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Reiichiro Nakano",
+      "authorURL": "https://reiinakano.com/",
+      "affiliation": "",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Preetum Nakkiran",
+      "authorURL": "",
+      "affiliation": "OpenAI & Harvard",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Shibani Santurkar",
+      "authorURL": "http://people.csail.mit.edu/shibani/",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Brandon Tran",
+      "authorURL": "",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Dimitris Tsipras",
+      "authorURL": "http://people.csail.mit.edu/tsipras/",
+      "affiliation": "MIT",
+      "affiliationURL": ""
+    },
+    {
+      "author": "Eric Wallace",
+      "authorURL": "http://www.ericswallace.com/",
+      "affiliation": "Allen Institute for AI",
+      "affiliationURL": ""
+    }
+  ],
+  "katex": {
+    "delimiters": [
+      {
+        "left": "$",
+        "right": "$",
+        "display": false
+      },
+      {
+        "left": "$$",
+        "right": "$$",
+        "display": true
+      }
+    ]
+  }
+}
+</script>
+    </d-front-matter>
+
+    <d-title>
+        <h1>Thảo luận về<br> <em>Các Ví dụ Đối Kháng Không Phải
+                Lỗi, Chúng Là
+                Tính Năng</em></h1>
+        <!--<p>Ilya et al.'s paper was received with much interest by the research community.
+            In an experimental attempt to advance the scientific
+            dialogue,
+            Distill is publishing a collection of commentary articles and clarifications developed in collaboration with
+            the original paper's authors. </p>-->
+    </d-title>
+
+    <style>
+        .authors-affiliations {
+            display: none;
+        }
+    </style>
+
+    <d-article>
+
+```
+    <p>
+        Vào ngày 6 tháng 5, Andrew Ilyas và các đồng nghiệp <a href="http://gradientscience.org/adv/">đã công bố một bài báo</a>
+        <d-cite key="ilyas2019adversarial"></d-cite> trình bày hai bộ thí nghiệm. 
+        Trước hết, họ chỉ ra rằng các mô hình được huấn luyện trên các ví dụ đối kháng có thể chuyển giao sang dữ liệu thực,
+        và thứ hai là các mô hình được huấn luyện trên một tập dữ liệu được tạo ra từ các biểu diễn của mạng nơ-ron mạnh
+        dường như thừa hưởng tính bền vững không tầm thường.
+        Họ đề xuất một cách giải thích thú vị cho kết quả của mình:
+        các ví dụ đối kháng là do "non-robust features" vốn dự đoán cao nhưng không thể nhận biết bởi con người.
+    </p>
+
+    <p>
+        Bài báo đã nhận được sự quan tâm và thảo luận sôi nổi
+        trên mạng xã hội, danh sách gửi thư, và các nhóm đọc trên toàn thế giới.
+        Chúng ta nên diễn giải những thí nghiệm này như thế nào?
+        Chúng có thể được nhân rộng không?<d-footnote>
+            Nghiên cứu về ví dụ đối kháng đặc biệt dễ bị một dạng không nhân rộng trong các
+            lĩnh vực học máy,
+            vì nó yêu cầu các nhà nghiên cứu vừa tấn công vừa phòng thủ.
+            Ngay cả những nhà nghiên cứu rất nghiêm ngặt cũng dễ vô tình sử dụng một cuộc tấn công yếu.
+            Tuy nhiên, như chúng ta sẽ thấy, kết quả của Ilyas và cộng sự đã đứng vững trước sự kiểm tra ban đầu.
+        </d-footnote>
+        Và nếu các non-robust features tồn tại… thì chúng là gì?
+    </p>
+
+    <p>
+        Để khám phá những câu hỏi này, Distill quyết định thực hiện một "bài báo thảo luận" theo hình thức thử nghiệm.<d-footnote>
+            Thực hiện một bài báo thảo luận là điều mà Distill mong muốn thử trong vài năm qua.
+            Nó ban đầu được gợi ý bởi Ferenc Huszár, người viết nhiều bài thảo luận tuyệt vời về các bài báo trên <a
+                href="https://www.inference.vc/">blog của ông</a>.
+            <br><br>
+            Tại sao không để mọi người viết blog riêng như Ferenc?
+            Distill hy vọng việc cung cấp một diễn đàn tổ chức hơn để nhiều người tham gia
+            có thể khuyến khích các nhà nghiên cứu đầu tư năng lượng vào việc thảo luận công trình của người khác
+            và đảm bảo có cơ hội cho tất cả các bên bình luận và phản hồi trước khi phiên bản cuối cùng
+            được xuất bản.
+        </d-footnote>
+        Chúng tôi đã mời một số nhà nghiên cứu
+        viết bình luận về bài báo và tổ chức thảo luận cũng như phản hồi từ các tác giả gốc.
+    </p>
+
+    <p>
+        Cộng đồng Machine Learning
+        <a href="https://www.machinelearningdebates.com/program">đôi khi</a>
+        <a
+            href="https://medium.com/syncedreview/cvpr-paper-controversy-ml-community-reviews-peer-review-79bf49eb0547">lo lắng</a>
+        rằng việc đánh giá đồng đẳng chưa đủ kỹ lưỡng.
+        Ngược lại, chúng tôi ấn tượng bởi mức độ tham gia sâu sắc của những người phản hồi.
+        Một số người phản hồi thực sự đã đầu tư hàng tuần để tái tạo kết quả, chạy thí nghiệm mới và suy nghĩ
+        kỹ lưỡng về bài báo gốc.
+        Chúng tôi cũng thấy các người phản hồi cập nhật quan điểm về non-robust features khi họ thực hiện thí nghiệm — đôi khi đi tới đi lui!
+        Các tác giả gốc cũng tham gia sâu sắc vào việc thảo luận kết quả, làm rõ các hiểu lầm, và
+        thậm chí chạy các thí nghiệm mới để phản hồi các bình luận.
+    </p>
+
+    <p>
+        Chúng tôi cho rằng sự tham gia và thảo luận sâu sắc này thật sự thú vị, và hy vọng thử nghiệm nhiều bài báo
+        thảo luận như vậy trong tương lai.
+    </p>
+
+    <h2>Chủ đề Thảo luận</h2>
+
+    <p>
+        <b>Làm rõ</b>:
+        Thảo luận giữa những người phản hồi và các tác giả gốc đã có thể
+        làm nổi bật một số hiểu lầm hoặc cơ hội để làm sắc nét các khẳng định.
+        Các tác giả gốc tóm tắt điều này trong phản biện của họ.
+    </p>
+
+    <p>
+        <b>Tái tạo thành công</b>:
+        Những người phản hồi đã thành công trong việc tái tạo nhiều thí nghiệm trong Ilyas et al <d-cite
+            key="ilyas2019adversarial"></d-cite> và không có nỗ lực tái tạo nào thất bại.
+        Điều này được hỗ trợ đáng kể bởi việc phát hành mã, mô hình và tập dữ liệu bởi các tác giả gốc.
+        Gabriel Goh và Preetum Nakkiran đều độc lập triển khai lại và tái tạo
+        các thí nghiệm với non-robust dataset.<d-footnote>
+            Preetum tái tạo thí nghiệm $\widehat{\mathcal{D}}_{det}$ với non-robust dataset như mô tả trong
+            bài báo, cho các cuộc tấn công $L_\infty$ và $L_2$.
+            <br>
+            Gabriel tái tạo cả $\widehat{\mathcal{D}}_{det}$ và $\widehat{\mathcal{D}}_{rand}$ cho các cuộc tấn công $L_2$.
+        </d-footnote>
+        Preetum cũng tái tạo một phần thí nghiệm với robust dataset bằng cách
+        huấn luyện mô hình trên tập dữ liệu robust được cung cấp và nhận thấy chúng có vẻ bền vững không tầm thường.
+        Điều này đáng chú ý về mặt nhận thức khi cả Preetum và Gabriel ban đầu đều nghi ngờ.
+        Preetum nhấn mạnh rằng anh thấy hiện tượng này dễ vận hành và bền vững với nhiều biến thể
+        và siêu tham số mà anh thử.
+    </p>
+
+    <p>
+        <b>Khám phá giới hạn của Non-Robust Transfer</b>:
+        Ba trong số các bình luận tập trung vào các biến thể của thí nghiệm "non-robust dataset",
+        nơi việc huấn luyện trên các ví dụ đối kháng chuyển giao sang dữ liệu thực.
+        Khi nào, như thế nào, và tại sao điều đó xảy ra?
+        Gabriel Goh khám phá một cơ chế thay thế cho kết quả,
+        Preetum Nakkiran trình bày một cấu trúc đặc biệt nơi điều đó không xảy ra,
+        và Eric Wallace cho thấy chuyển giao có thể xảy ra với các loại dữ liệu gán nhãn sai khác.
+    </p>
+
+    <p>
+        <b>Đặc tính của Robust và Non-Robust Features</b>:
+        Ba bình luận còn lại tập trung vào đặc tính của các mô hình robust và non-robust.
+        Gabriel Goh khám phá các non-robust features có thể trông như thế nào trong trường hợp mô hình tuyến tính,
+        trong khi Dan Hendrycks và Justin Gilmer thảo luận về cách kết quả liên quan đến vấn đề rộng hơn về
+        độ bền với sự thay đổi phân phối,
+        và Reiichiro Nakano khám phá sự khác biệt định tính của các mô hình robust trong bối cảnh style transfer.
+    </p>
+
+    <h2>Bình luận</h2>
+    <p>
+        Distill đã thu thập sáu bình luận về bài báo gốc.
+        Chúng được trình bày theo thứ tự chữ cái theo họ tác giả,
+        với tóm tắt ngắn gọn của mỗi bình luận và phản hồi tương ứng từ các tác giả gốc.
+    </p>
+
+    <div id="commentaries" class="articles">
+        <article id="response-1">
+            <div class=icon></div>
+            <header>
+                <h3>
+                    <a href="response-1/">Các Nhà Nghiên cứu Ví dụ Đối Kháng Cần Mở Rộng Khái Niệm "Robustness"</a>
+                </h3>
+                <div class="authors-affiliations grid">
+                    <h3>Authors</h3>
+                    <h3>Affiliations</h3>
+                    <p class="author">
+                        <a class="name" href="https://www.linkedin.com/in/jmgilmer">Justin Gilmer</a>
+                    </p>
+                    <p class="affiliation">
+                        <a class="affiliation" href="https://g.co/brain">Google Brain Team</a>
+                    </p>
+                    <p class="author">
+                        <a class="name" href="https://people.eecs.berkeley.edu/~hendrycks/">Dan Hendrycks</a>
+                    </p>
+                    <p class="affiliation">
+                        <a class="affiliation" href="https://www.berkeley.edu/">UC Berkeley</a>
+                    </p>
+                </div>
+            </
+```
+
+    <d-appendix>
+        <h3>Thông tin Trích dẫn</h3>
+        <p>
+            Nếu bạn muốn trích dẫn toàn bộ bài thảo luận này, thông tin trích dẫn có thể tìm thấy bên dưới.
+            Thứ tự tác giả là tất cả những người tham gia trong cuộc thảo luận theo thứ tự chữ cái.
+            Bạn cũng có thể trích dẫn các bình luận riêng lẻ hoặc phản hồi của tác giả bằng thông tin trích dẫn được cung cấp ở
+            cuối bài báo tương ứng.
+        </p>
+
+```
+    <h3>Ghi chú Biên tập</h3>
+    <p>
+        Bài báo thảo luận này là một thí nghiệm do Chris Olah và Ludwig Schubert tổ chức.
+        Chris Olah đã điều phối và biên tập quá trình bình luận và thảo luận. Ludwig Schubert
+        hỗ trợ bằng cách tập hợp các phản hồi vào trình bày hiện tại.
+    </p>
+
+    <p>
+        Chúng tôi vô cùng biết ơn về thời gian
+        và nỗ lực mà cả các tác giả của phản hồi cũng như các tác giả của bài báo gốc đã bỏ ra cho
+        quá trình này, và sự kiên nhẫn mà họ dành cho đội biên tập khi chúng tôi thử nghiệm định dạng này.
+        Những người phản hồi được lựa chọn theo hai cách.
+        Một số người phản hồi được chú ý vì họ đang tích cực nghiên cứu để hiểu rõ hơn kết quả của Ilyas
+        et al.
+        Những người phản hồi khác là các chuyên gia trong lĩnh vực mà chúng tôi đã liên hệ.
+    </p>
+
+    <p>
+        Distill cũng biết ơn <a href="https://www.inference.vc/">Ferenc Huszár</a> vì đã khuyến khích chúng tôi
+        khám phá kiểu bài báo này.
+    </p>
+
+    <d-footnote-list></d-footnote-list>
+    <d-citation-list></d-citation-list>
+</d-appendix>
+```
+
+    <d-bibliography src="bibliography.bib"></d-bibliography>
+
+<script type="text/javascript" src="index.bundle.js"></script></body>
